@@ -1,0 +1,24 @@
+<div *ngIf="PlaygroundsList.length==0" class="alert alert-info text-center" role="alert">
+  <strong>No Playgrounds Added</strong>
+</div>
+
+<div *ngIf="serverError" class="alert alert-danger" role="alert">
+  <strong>{{serverError}}</strong>
+</div>
+<div class="row">
+  <div *ngFor="let playground of PlaygroundsList" class="card col-4">
+    <img class="card-img-top" src="{{'http://localhost:3000/'+playground.mainImg}}" alt="">
+    <div class="card-body">
+      <p class="card-text">Playground name: {{playground.name}}</p>
+      <p class="card-text">Playground city: {{playground.city}}</p>
+      <p class="card-text">Playground address: {{playground.address}}</p>
+      <p class="card-text">Playground price: {{playground.price}}</p>
+
+    </div>
+    <div class="card-footer">
+      <button type="button" (click)="reservations(playground._id)" class="btn btn-success">Reservations</button>
+      <button type="button" (click)="edit(playground._id)" class="btn btn-warning">Edit</button>
+      <button type="button" (click)="delete(playground._id)" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>

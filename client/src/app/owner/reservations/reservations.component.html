@@ -1,0 +1,28 @@
+<full-calendar (eventClick)="handleEventClick($event)" defaultView="timeGridWeek" [weekends]="true"
+  [plugins]="calendarPlugins" [events]="events" slotDuration='00:30:00' [allDaySlot]='false' [nowIndicator]='true'
+  eventColor='blue' height='auto' [firstDay]='6' slotLabelInterval='00:30:00'>
+</full-calendar>
+
+<!-- Modal -->
+<div class="modal fade" id="playerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{player?.name}} made this reservation.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>Email: {{player?.email}}</h5>
+        <h5>Mobile: {{player?.phone || "Not Available"}}</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="delete(reservation_id)" class="btn btn-danger" data-dismiss="modal">Delete
+          Reservation</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

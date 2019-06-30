@@ -1,0 +1,54 @@
+input[type=text].invalid-textbox,input[type=password].invalid-textbox{
+  border: 2px solid #ed5558;
+  }
+
+.photo{
+  /* height: 300px; */
+  width: 400px;
+  border-radius: 50%;
+}
+
+.photo:hover{
+  opacity: .5;
+}
+
+.profile-pic {
+	position: relative;
+	display: inline-block;
+}
+
+.edit {
+	/* padding-top: 7px;	
+	padding-right: 7px; */
+	position: absolute;
+	right: 50%;
+  bottom: 0;
+  /* background-color: rgba(0, 0, 0); */
+
+}
+
+#imgIcon{
+  cursor: pointer;
+}
+
+.container{
+  width: 500px;
+  margin: auto;
+  height: 550px;
+}
+
+.camIcon{
+  font-size: 30px;
+}
+
+.camIcon:hover{
+  font-size:50px;
+}
+
+.beforeEdit{
+  color:white;
+}
+
+.afterEdit{
+  color:black;
+}

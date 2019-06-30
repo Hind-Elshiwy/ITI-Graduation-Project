@@ -1,0 +1,46 @@
+<script src="/src/assets/js/loginImg.js"></script>
+
+<form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+  <div class="image">
+    <div class="spriteAnimation"></div>
+  </div>
+
+  <input type="text" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="Email" [pattern]="emailRegex"
+    required [ngClass]="{'invalid-textbox' :signInForm.submitted && !email.valid }">
+  <div *ngIf="signInForm.submitted && email.errors">
+    <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+    <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+  </div>
+  <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Password" required
+    minlength="6" [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
+  <div *ngIf="signInForm.submitted && password.errors">
+    <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+    <label *ngIf="password.errors.minlength" class="validation-message">Minimum 6 characters.</label>
+  </div>
+  <!-- 
+  <div class="container">
+    <div class="d-inline-block m-3">
+      <input type="radio" id="role_player" #role="ngModel" name="role" value="player" [(ngModel)]="user.role" required>
+      <label class="role-input" for="role_player">Player</label>
+    </div>
+    <div class="d-inline-block m-3">
+      <input type="radio" id="role_owner" name="role" value="owner" [(ngModel)]="user.role">
+      <label class="role-input" for="role_owner">Playground owner</label>
+    </div>
+  </div> -->
+
+  <select #role="ngModel" id="role" name="role" [(ngModel)]="user.role" required class="form-control">
+    <optgroup label="Role">
+      <option value="owner">Playground owner</option>
+      <option value="player">Player</option>
+    </optgroup>
+  </select>
+  <div *ngIf="signInForm.submitted && !role.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+  <input type="submit" value="Sign In">
+</form>
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>

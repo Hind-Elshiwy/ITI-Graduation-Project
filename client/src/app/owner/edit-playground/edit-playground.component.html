@@ -1,0 +1,58 @@
+<div class="container" style="width: 500px;">
+
+  <div *ngIf="serverError" class="alert alert-danger" role="alert">
+    <strong>{{serverError}}</strong>
+  </div>
+
+  <form #playgroundForm="ngForm" (ngSubmit)="playgroundForm.valid && onSubmit(playgroundForm)">
+
+    <div class="form-group">
+      <label for="playground">Playground Name</label>
+      <input type="text" #name="ngModel" name="name" id="playground" class="form-control" placeholder="Playground Name"
+        required [ngClass]="{'invalid-textbox':playgroundForm.submitted && !name.valid }"
+        [(ngModel)]="newPlayground.name">
+      <div *ngIf="playgroundForm.submitted && !name.valid">
+        <label class="text-danger">Playground name is required.</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="city">City</label>
+      <input type="text" #city="ngModel" name="city" id="city" class="form-control" placeholder="City" required
+        [ngClass]="{'invalid-textbox':playgroundForm.submitted && !city.valid }" [(ngModel)]="newPlayground.city">
+      <div *ngIf="playgroundForm.submitted && !city.valid">
+        <label class="text-danger">City is required.</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" #address="ngModel" name="address" id="address" class="form-control" placeholder="Address"
+        required [ngClass]="{'invalid-textbox':playgroundForm.submitted && !address.valid }"
+        [(ngModel)]="newPlayground.address">
+      <div *ngIf="playgroundForm.submitted && !address.valid">
+        <label class="text-danger">Address is required.</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price per hour</label>
+      <input type="number" min="1" #price="ngModel" name="price" id="price" class="form-control" placeholder="Price"
+        required [ngClass]="{'invalid-textbox':playgroundForm.submitted && !price.valid }"
+        [(ngModel)]="newPlayground.price">
+      <div *ngIf="playgroundForm.submitted && !price.valid">
+        <label class="text-danger">Price is required.</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="photo">Playground Image</label>
+      <input #imageInput name="img" id="photo" class="form-control" type="file" accept="image/*"
+        [ngClass]="{'invalid-textbox':playgroundForm.submitted && !imageInput.value }"
+        (change)="processFile(imageInput)">
+
+
+    </div>
+
+    <input type="submit" class="btn btn-warning" value="Edit">
+  </form>
+</div>

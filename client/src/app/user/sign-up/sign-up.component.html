@@ -1,0 +1,60 @@
+<script src="/src/assets/js/loginImg.js"></script>
+
+<form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+  <div class="image">
+    <div class="spriteAnimation"></div>
+  </div>
+
+  <input type="text" #name="ngModel" [(ngModel)]="userService.user.name" name="name" placeholder="Full Name" required
+    [ngClass]="{'invalid-textbox' :signUpForm.submitted && !name.valid }">
+  <div *ngIf="signUpForm.submitted && !name.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+  <input type="text" #email="ngModel" [(ngModel)]="userService.user.email" name="email" placeholder="Email" required
+    [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :signUpForm.submitted && !email.valid }">
+  <div *ngIf="signUpForm.submitted && email.errors">
+    <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+    <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+  </div>
+  <input type="password" #password="ngModel" [(ngModel)]="userService.user.password" name="password"
+    placeholder="Password" minlength="6" required
+    [ngClass]="{'invalid-textbox' :signUpForm.submitted && !password.valid }">
+  <div *ngIf="signUpForm.submitted && password.errors">
+    <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+    <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 6 characters.</label>
+  </div>
+  <div class="container">
+    <!-- <div class="d-inline-block m-3">
+      <input type="radio" id="role_player" #role="ngModel" name="role" value="player"
+        [(ngModel)]="userService.user.role" required>
+      <label class="role-input" for="role_player">Player</label>
+    </div>
+    <div class="d-inline-block m-3">
+      <input type="radio" id="role_owner" name="role" value="owner" [(ngModel)]="userService.user.role">
+      <label class="role-input" for="role_owner">Playground owner</label>
+    </div> -->
+
+    <!-- <label  for="role">Role</label> -->
+    <select #role="ngModel" id="role" name="role" [(ngModel)]="userService.user.role" required class="form-control">
+      <optgroup label="Role">
+        <option value="owner">Playground owner</option>
+        <option value="player">Player</option>
+      </optgroup>
+    </select>
+  </div>
+  <div *ngIf="signUpForm.submitted && !role.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+  <input type="submit" value="Sign Up">
+</form>
+
+<!-- Success message -->
+<div class="success" *ngIf="showSucessMessage">
+  Saved successfully
+</div>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>

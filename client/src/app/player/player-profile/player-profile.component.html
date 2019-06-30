@@ -1,0 +1,110 @@
+<div *ngIf="error" class="alert alert-danger" role="alert">
+  <p>{{error}}</p>
+</div>
+<div class="container">
+  <form #editForm="ngForm" (ngSubmit)="editForm.valid &&onSubmit(editForm)">
+    <table class="table table-striped table-inverse table-responsive m-auto">
+      <tbody>
+        <tr>
+          <td colspan="2" class="text-center">
+            <div class="profile-pic">
+              <img class="photo" src="{{'http://localhost:3000/'+userDetails?.avatar}}" alt="">
+              <div class="edit" *ngIf="!uneditable">
+                <label for="img" id="imgIcon">
+                  <i class="fas camIcon fa-camera"></i>
+                </label>
+                <input style="display: none" #imageInput name="img" id="img" type="file" accept="image/*"
+                  (change)="processFile(imageInput)">
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-middle">Name</td>
+          <td> <input type="text" #name="ngModel" name="name" required [readonly]="uneditable" placeholder="Full Name"
+              [ngClass]="{'form-control-plaintext beforeEdit':uneditable ,'form-control afterEdit':!uneditable ,'invalid-textbox' :editForm.submitted && !name.valid}"
+              [ngModel]="userDetails?.name" (ngModelChange)="userDetails.name = $event">
+            <div *ngIf="editForm.submitted && !name.valid">
+              <label class="text-danger">This field is required.</label>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="align-middle">Email</td>
+          <td> <input type="text" #email="ngModel" name="email" [readonly]="uneditable" required [pattern]="emailRegex"
+              placeholder="Email"
+              [ngClass]="{'form-control-plaintext beforeEdit':uneditable ,'form-control afterEdit':!uneditable ,'invalid-textbox' :editForm.submitted && !email.valid}"
+              [ngModel]="userDetails?.email" (ngModelChange)="userDetails.email = $event">
+            <div *ngIf="editForm.submitted && email.errors">
+              <label *ngIf="email.errors.required" class="text-danger">This field is required.</label>
+              <label *ngIf="email.errors.pattern" class="text-danger">Invalid email address.</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-middle">Phone</td>
+          <td> <input type="text" #phone="ngModel" name="phone" placeholder="No phone number saved"
+              [readonly]="uneditable" [pattern]="phoneRegex"
+              [ngClass]="{'form-control-plaintext beforeEdit':uneditable ,'form-control afterEdit':!uneditable ,'invalid-textbox' :editForm.submitted && !phone.valid}"
+              [ngModel]="userDetails?.phone" (ngModelChange)="userDetails.phone = $event">
+            <div *ngIf="editForm.submitted && phone.errors">
+              <label *ngIf="phone.errors.required" class="text-danger">This field is required.</label>
+              <label *ngIf="phone.errors.pattern" class="text-danger">Invalid mobile phone.</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-middle">Address</td>
+          <td> <input type="text" #address="ngModel" name="address" [readonly]="uneditable"
+              placeholder="No Address saved"
+              [ngClass]="{'form-control-plaintext beforeEdit':uneditable ,'form-control afterEdit':!uneditable ,'invalid-textbox' :editForm.submitted && !address.valid}"
+              [ngModel]="userDetails?.address" (ngModelChange)="userDetails.address = $event">
+          </td>
+        </tr>
+
+        <tr>
+            <td class="align-middle">City</td>
+            <ng-container *ngIf="uneditable; else selectCity">
+              <td class="align-middle beforeEdit">
+                {{userDetails?.city}}
+              </td>
+            </ng-container>
+            <ng-template #selectCity>
+              <td>  
+                <select [ngClass]="{'form-control afterEdit':!uneditable ,'invalid-textbox' :editForm.submitted && !city.valid}"
+                #city="ngModel" name="city" id="city" [(ngModel)]="userDetails.city">
+                <option *ngFor="let city of cities">{{city}}</option>
+              </select>
+              </td>
+            </ng-template>
+          </tr>
+
+        <tr>
+          <ng-container *ngIf="uneditable; else elseTemplate">
+            <td colspan="2" class="align-middle text-center"><button type="button" class="btn btn-warning"
+                (click)="onEdit()">Edit</button></td>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <td colspan="2" class="align-middle text-center">
+              <input type="submit" class="btn btn-success" value="Save">
+            </td>
+          </ng-template>
+        </tr>
+
+        <tr *ngIf="showSucessMessage" class="align-middle text-center alert alert-success">
+          <td colspan="2">
+            <strong>Updated successfully.</strong>
+          </td>
+        </tr>
+
+        <tr *ngIf="serverError" class="align-middle text-center alert alert-danger">
+          <td colspan="2">
+            <strong>{{serverError}}</strong>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </form>
+</div>

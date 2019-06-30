@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand">Elkora X Mal3bna</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link " routerLinkActive="active" [routerLink]="['/player/playgrounds']">Playgrounds</a>
+      <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/player/profile']">Profile</a>
+      <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/player/matches']">My matches</a>
+    </div>
+    <div class="navbar-nav ml-auto">
+      <a class="nav-item nav-link btn">{{userService.user?.name}}</a>
+      <img class="avatar" src="{{'http://localhost:3000/'+userService.user?.avatar}}" alt="">
+      <button class="nav-item nav-link btn" (click)="onLogout()">Logout</button>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

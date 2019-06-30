@@ -1,0 +1,6 @@
+input.invalid-textbox,input[type=password].invalid-textbox{
+    border: 2px solid #ed5558;
+    }
+label{
+    color: white;
+}

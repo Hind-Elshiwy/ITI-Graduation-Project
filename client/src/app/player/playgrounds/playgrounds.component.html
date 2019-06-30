@@ -1,0 +1,22 @@
+<div *ngIf="serverError" class="alert alert-danger" role="alert">
+  <strong>{{serverError}}</strong>
+</div>
+
+
+<select #city="ngModel" class="form-control" (change)="update()" name="city" id="city" [(ngModel)]="selectedCity">
+  <option *ngFor="let city of cities">{{city}}</option>
+</select>
+
+<div *ngIf="showedPlaygrounds.length==0" class="alert alert-success" role="alert">
+  <p>No playgrounds in this city</p>
+</div>
+
+<div *ngFor="let playground of showedPlaygrounds" class="card col-4">
+  <img class="card-img-top" style="width: 400px" src="{{'http://localhost:3000/'+playground.mainImg}}" alt="">
+  <div class="card-body">
+    <p class="card-text">Playground name: {{playground?.name}}</p>
+    <p class="card-text">Playground city: {{playground?.city}}</p>
+    <p class="card-text">Playground address: {{playground?.address}}</p>
+    <a class="btn btn-success" [routerLink]="['/player/playground',playground._id]">Pick Time</a>
+  </div>
+</div>
